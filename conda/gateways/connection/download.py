@@ -35,7 +35,7 @@ def disable_ssl_verify_warning():
 
 def preload_openssl():
     """Because our openssl library lives in Librar/bin, and because that may not be on PATH
-    if conda.exe in Scripts is called directly, try this preload to avoid user issues."""
+    if conda.bat in Scripts is called directly, try this preload to avoid user issues."""
     libbin_path = os.path.join(sys.prefix, 'Library', 'bin')
     libssl_dllname = 'libssl'
     libcrypto_dllname = 'libcrypto'

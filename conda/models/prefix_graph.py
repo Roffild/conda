@@ -312,7 +312,7 @@ class PrefixGraph(object):
 
             # 3. On windows, python noarch packages need an implicit dependency on conda added, if
             #    conda is in the list of packages for the environment.  Python noarch packages
-            #    that have entry points use conda's own conda.exe python entry point binary. If
+            #    that have entry points use conda's own conda.bat python entry point binary. If
             #    conda is going to be updated during an operation, the unlink / link order matters.
             #    See issue #6057.
             conda_node = next((node for node in graph if node.name == 'conda'), None)

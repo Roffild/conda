@@ -535,7 +535,7 @@ class Context(Configuration):
     # This is deprecated, please use conda_exe_vars_dict instead.
     def conda_exe(self):
         bin_dir = 'Scripts' if on_win else 'bin'
-        exe = 'conda.exe' if on_win else 'conda'
+        exe = 'conda.bat' if on_win else 'conda'
         return join(self.conda_prefix, bin_dir, exe)
 
     @property
@@ -554,7 +554,7 @@ class Context(Configuration):
                                 ('CONDA_PYTHON_EXE', sys.executable)])
         else:
             bin_dir = 'Scripts' if on_win else 'bin'
-            exe = 'conda.exe' if on_win else 'conda'
+            exe = 'conda.bat' if on_win else 'conda'
             # I was going to use None to indicate a variable to unset, but that gets tricky with
             # error-on-undefined.
             return OrderedDict([('CONDA_EXE', os.path.join(sys.prefix, bin_dir, exe)),

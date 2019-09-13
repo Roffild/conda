@@ -96,7 +96,7 @@ class TestBinaryReplace(unittest.TestCase):
             download(url, 'conda-4.1.6.tar.gz')
             subprocess.check_call([sys.executable, 'pyzzerw.pyz',
                                    # output file
-                                   '-o', 'conda.exe',
+                                   '-o', 'conda.bat',
                                    # entry point
                                    '-m', 'conda.cli.main:main',
                                    # initial shebang
@@ -108,13 +108,13 @@ class TestBinaryReplace(unittest.TestCase):
                                    ],
                                   cwd=tmp_dir)
             # this is the actual test: change the embedded prefix and make sure that the exe runs.
-            data = open('conda.exe', 'rb').read()
+            data = open('conda.bat', 'rb').read()
             fixed_data = binary_replace(data, original_prefix, sys.executable)
             with open("conda.fixed.exe", 'wb') as f:
                 f.write(fixed_data)
             # without a valid shebang in the exe, this should fail
             with pytest.raises(subprocess.CalledProcessError):
-                subprocess.check_call(['conda.exe', '-h'])
+                subprocess.check_call(['conda.bat', '-h'])
 
             process = subprocess.Popen(['conda.fixed.exe', '-h'],
                                        stdout=subprocess.PIPE,

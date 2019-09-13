@@ -2570,7 +2570,7 @@ class IntegrationTests(TestCase):
             # for this and my clean_env stuff gets in the way but let's just be explicit about the Python
             # instead.  If we ran any conda stuff that needs ssl on Windows then we'd need to use
             # Commands.RUN here, but on Unix we'll be fine.
-            conda_exe = join(prefix, 'Scripts', 'conda.exe') if on_win else join(prefix, 'bin', 'conda')
+            conda_exe = join(prefix, 'Scripts', 'conda.bat') if on_win else join(prefix, 'bin', 'conda')
             with env_var('CONDA_BAT' if on_win else 'CONDA_EXE', conda_exe, stack_callback=conda_tests_ctxt_mgmt_def_pol):
                 result = subprocess_call_with_clean_env([conda_exe, "--version"], path=prefix)
                 assert result.rc == 0
@@ -2670,7 +2670,7 @@ class IntegrationTests(TestCase):
                                name = '_' + str(uuid4())[:8]) as prefix:  # rev 0
                 # See comment in test_init_dev_and_NoBaseEnvironmentError.
                 python_exe = join(prefix, 'python.exe') if on_win else join(prefix, 'bin', 'python')
-                conda_exe = join(prefix, 'Scripts', 'conda.exe') if on_win else join(prefix, 'bin', 'conda')
+                conda_exe = join(prefix, 'Scripts', 'conda.bat') if on_win else join(prefix, 'bin', 'conda')
                 # this is used to run the python interpreter in the env and loads our dev
                 #     version of conda
                 py_co = [python_exe, "-m", "conda"]

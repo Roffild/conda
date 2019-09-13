@@ -1012,7 +1012,7 @@ class Resolve(object):
         #       package tries to import it to create/remove a shortcut
         # 3. On windows, python noarch packages need an implicit dependency on conda added, if
         #    conda is in the list of packages for the environment.  Python noarch packages
-        #    that have entry points use conda's own conda.exe python entry point binary. If conda
+        #    that have entry points use conda's own conda.bat python entry point binary. If conda
         #    is going to be updated during an operation, the unlink / link order matters.
         #    See issue #6057.
 

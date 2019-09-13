@@ -250,7 +250,7 @@ class PathActionsTests(TestCase):
             assert isfile(windows_exe_axn.target_full_path)
             assert is_executable(windows_exe_axn.target_full_path)
 
-            src = compute_md5sum(join(context.conda_prefix, 'Scripts/conda.exe'))
+            src = compute_md5sum(join(context.conda_prefix, 'Scripts/conda.bat'))
             assert src == compute_md5sum(windows_exe_axn.target_full_path)
 
             windows_exe_axn.reverse()

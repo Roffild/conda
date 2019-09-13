@@ -43,7 +43,7 @@ set_vars() {
 
     if [ -n "$ON_WIN" ]; then
         export PYTHON_EXE="$INSTALL_PREFIX/python.exe"
-        export CONDA_EXE="$INSTALL_PREFIX/Scripts/conda.exe"
+        export CONDA_EXE="$INSTALL_PREFIX/Scripts/conda.bat"
     else
         export PYTHON_EXE="$INSTALL_PREFIX/bin/python"
         export CONDA_EXE="$INSTALL_PREFIX/bin/conda"
@@ -301,7 +301,7 @@ install_conda_dev() {
 
 
     if [ -n "$ON_WIN" ]; then
-        $PYTHON_EXE utils/setup-testing.py develop  # this, just for the conda.exe and conda-env.exe file
+        $PYTHON_EXE utils/setup-testing.py develop  # this, just for the conda.bat and conda-env.bat file
         make_conda_entrypoint "$prefix/Scripts/conda-script.py" "$(cygpath -w "$PYTHON_EXE")" "$(cygpath -w "$src_dir")" "from conda.cli import main"
         make_conda_entrypoint "$prefix/Scripts/conda-env-script.py" "$(cygpath -w "$PYTHON_EXE")" "$(cygpath -w "$src_dir")" "from conda_env.cli.main import main"
     else

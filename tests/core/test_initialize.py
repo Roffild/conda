@@ -74,14 +74,14 @@ class InitializeTests(TestCase):
                         "function": "make_entry_point_exe",
                         "kwargs": {
                             "conda_prefix": "/darwin",
-                            "target_path": "/darwin\\Scripts\\conda.exe"
+                            "target_path": "/darwin\\Scripts\\conda.bat"
                         }
                     },
                     {
                         "function": "make_entry_point_exe",
                         "kwargs": {
                             "conda_prefix": "/darwin",
-                            "target_path": "/darwin\\Scripts\\conda-env.exe"
+                            "target_path": "/darwin\\Scripts\\conda-env.bat"
                         }
                     },
                     {
@@ -395,7 +395,7 @@ class InitializeTests(TestCase):
     def test_make_entry_point_exe(self):
         with tempdir() as conda_temp_prefix:
             conda_prefix = abspath(sys.prefix)
-            target_path = join(conda_temp_prefix, 'Scripts', 'conda-env.exe')
+            target_path = join(conda_temp_prefix, 'Scripts', 'conda-env.bat')
             result = make_entry_point_exe(target_path, conda_prefix)
             assert result == Result.MODIFIED
 
@@ -468,7 +468,7 @@ class InitializeTests(TestCase):
 
             first_line, second_line, third_line, fourth_line, remainder = created_file_contents.split('\n', 4)
             if on_win:
-                win_conda_exe = join(conda_prefix, 'Scripts', 'conda.exe')
+                win_conda_exe = join(conda_prefix, 'Scripts', 'conda.bat')
                 win_py_exe = join(conda_prefix, 'python.exe')
                 assert first_line == 'set -gx CONDA_EXE (cygpath "%s")' % win_conda_exe
                 assert second_line == 'set _CONDA_ROOT (cygpath "%s")' % conda_prefix
@@ -499,7 +499,7 @@ class InitializeTests(TestCase):
 
             first_line, remainder = created_file_contents.split('\n', 1)
             if on_win:
-                assert first_line == '$CONDA_EXE = "%s"' % join(conda_prefix, 'Scripts', 'conda.exe')
+                assert first_line == '$CONDA_EXE = "%s"' % join(conda_prefix, 'Scripts', 'conda.bat')
             else:
                 assert first_line == '$CONDA_EXE = "%s"' % join(conda_prefix, 'bin', 'conda')
 
@@ -522,9 +522,9 @@ class InitializeTests(TestCase):
 
             first_line, second_line, third_line, fourth_line, remainder = created_file_contents.split('\n', 4)
             if on_win:
-                assert first_line == 'setenv CONDA_EXE `cygpath %s`' % join(conda_prefix, 'Scripts', 'conda.exe')
+                assert first_line == 'setenv CONDA_EXE `cygpath %s`' % join(conda_prefix, 'Scripts', 'conda.bat')
                 assert second_line == 'setenv _CONDA_ROOT `cygpath %s`' % conda_prefix
-                assert third_line == 'setenv _CONDA_EXE `cygpath %s`' % join(conda_prefix, 'Scripts', 'conda.exe')
+                assert third_line == 'setenv _CONDA_EXE `cygpath %s`' % join(conda_prefix, 'Scripts', 'conda.bat')
                 assert fourth_line == 'setenv CONDA_PYTHON_EXE `cygpath %s`' % join(conda_prefix, 'python.exe')
             else:
                 assert first_line == 'setenv CONDA_EXE "%s"' % join(conda_prefix, 'bin', 'conda')
@@ -573,8 +573,8 @@ class InitializeTests(TestCase):
         assert "WARNING: Cannot install xonsh wrapper" in c.stderr
         if on_win:
             modified_files = (
-                'conda.exe',
-                'conda-env.exe',
+                'conda.bat',
+                'conda-env.bat',
                 'conda-script.py',
                 'conda-env-script.py',
                 'conda.bat',  # condabin/conda.bat
@@ -637,8 +637,8 @@ class InitializeTests(TestCase):
 
         if on_win:
             modified_files = (
-                'conda.exe',
-                'conda-env.exe',
+                'conda.bat',
+                'conda-env.bat',
                 'conda-script.py',
                 'conda-env-script.py',
                 'conda.bat',  # condabin/conda.bat
@@ -709,8 +709,8 @@ class InitializeTests(TestCase):
 
         if on_win:
             modified_files = (
-                'conda.exe',
-                'conda-env.exe',
+                'conda.bat',
+                'conda-env.bat',
                 'conda-script.py',
                 'conda-env-script.py',
                 'conda.bat',  # condabin/conda.bat
@@ -914,7 +914,7 @@ class InitializeTests(TestCase):
 
             # >>> conda initialize >>>
             # !! Contents within this block are managed by 'conda init' !!
-            eval "$('%(cygpath_conda_prefix)s/Scripts/conda.exe' 'shell.bash' 'hook')"
+            eval "$('%(cygpath_conda_prefix)s/Scripts/conda.bat' 'shell.bash' 'hook')"
             # <<< conda initialize <<<
 
             # . etc/profile.d/conda.sh  # commented out by conda initialize

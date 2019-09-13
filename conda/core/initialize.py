@@ -255,7 +255,7 @@ def make_install_plan(conda_prefix):
         plan.append({
             'function': make_entry_point_exe.__name__,
             'kwargs': {
-                'target_path': join(conda_prefix, 'Scripts', 'conda.exe'),
+                'target_path': join(conda_prefix, 'Scripts', 'conda.bat'),
                 'conda_prefix': conda_prefix,
             },
         })
@@ -267,7 +267,7 @@ def make_install_plan(conda_prefix):
             },
         })
     else:
-        # We can't put a conda.exe in condabin on Windows. It'll conflict with conda.bat.
+        # We can't put a conda.bat in condabin on Windows. It'll conflict with conda.bat.
         plan.append({
             'function': make_entry_point.__name__,
             'kwargs': {
@@ -809,10 +809,9 @@ def make_entry_point(target_path, conda_prefix, module, func):
 
 
 def make_entry_point_exe(target_path, conda_prefix):
-    # target_path: join(conda_prefix, 'Scripts', 'conda.exe')
+    # target_path: join(conda_prefix, 'Scripts', 'conda.bat')
     exe_path = target_path
-    bits = 8 * tuple.__itemsize__
-    source_exe_path = join(CONDA_PACKAGE_ROOT, 'shell', 'cli-%d.exe' % bits)
+    source_exe_path = join(CONDA_PACKAGE_ROOT, 'shell', 'cli.bat')
     if isfile(exe_path):
         if compute_md5sum(exe_path) == compute_md5sum(source_exe_path):
             return Result.NO_CHANGE
@@ -1027,7 +1026,7 @@ def install_conda_csh(target_path, conda_prefix):
 def _config_fish_content(conda_prefix):
     if on_win:
         from ..activate import native_path_to_unix
-        conda_exe = native_path_to_unix(join(conda_prefix, 'Scripts', 'conda.exe'))
+        conda_exe = native_path_to_unix(join(conda_prefix, 'Scripts', 'conda.bat'))
     else:
         conda_exe = join(conda_prefix, 'bin', 'conda')
     conda_initialize_content = dals("""
@@ -1129,7 +1128,7 @@ def init_fish_user(target_path, conda_prefix, reverse):
 def _config_xonsh_content(conda_prefix):
     if on_win:
         from ..activate import native_path_to_unix
-        conda_exe = native_path_to_unix(join(conda_prefix, 'Scripts', 'conda.exe'))
+        conda_exe = native_path_to_unix(join(conda_prefix, 'Scripts', 'conda.bat'))
     else:
         conda_exe = join(conda_prefix, 'bin', 'conda')
     conda_initialize_content = dals("""
@@ -1214,7 +1213,7 @@ def init_xonsh_user(target_path, conda_prefix, reverse):
 def _bashrc_content(conda_prefix, shell):
     if on_win:
         from ..activate import native_path_to_unix
-        conda_exe = native_path_to_unix(join(conda_prefix, 'Scripts', 'conda.exe'))
+        conda_exe = native_path_to_unix(join(conda_prefix, 'Scripts', 'conda.bat'))
         conda_initialize_content = dals("""
         # >>> conda initialize >>>
         # !! Contents within this block are managed by 'conda init' !!
@@ -1509,7 +1508,7 @@ def init_long_path(target_path):
 
 def _powershell_profile_content(conda_prefix):
     if on_win:
-        conda_exe = join(conda_prefix, 'Scripts', 'conda.exe')
+        conda_exe = join(conda_prefix, 'Scripts', 'conda.bat')
     else:
         conda_exe = join(conda_prefix, 'bin', 'conda')
 
